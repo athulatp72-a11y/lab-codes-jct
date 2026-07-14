@@ -163,14 +163,36 @@
 <script>
     // --- UPLOAD YOUR CODES HERE ---
     const labDatabase = {
-        "1": {
-            title: "Experiment 1: Basic Input and Output",
-            code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello World!";\n    return 0;\n}`
-        },
-        "2": {
-            title: "Experiment 2: Checking Even or Odd",
-            code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cout << "Enter an integer: ";\n    cin >> n;\n    if ( n % 2 == 0 )\n        cout << n << " is even.";\n    else\n        cout << n << " is odd.";\n    return 0;\n}`
+        "1": {"1": {
+            title: "Experiment 1: Evidence-Based Reasoning (Weather Planner)",
+            code: `def evidence_based_reasoning(temperature, is_raining):
+    if temperature >= 25 and not is_raining:
+        return "It's a great day! Go for a walk."
+    elif temperature >= 20 and not is_raining:
+        return "It's a nice day. You can go for a walk."
+    elif is_raining:
+        return "It's raining. Better stay indoors."
+    else:
+        return "The weather doesn't seem suitable for a walk. Stay indoors."
+
+
+def main():
+    try:
+        temperature = float(input("Enter the current temperature in Celsius: "))
+        is_raining_input = input("Is it raining? (yes/no): ")
+        is_raining = is_raining_input.lower() == "yes"
+
+        result = evidence_based_reasoning(temperature, is_raining)
+        print(result)
+
+    except ValueError:
+        print("Please enter a valid temperature in Celsius.")
+
+
+if __name__ == "__main__":
+    main()`
         }
+           
     };
 
     function findCode() {

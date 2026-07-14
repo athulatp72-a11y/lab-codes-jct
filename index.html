@@ -173,7 +173,7 @@
 <textarea id="fallbackClipboardArea"></textarea>
 
 <script>
-    // --- UPLOAD YOUR CODES HERE ---
+    // Database containing cleaned experiments, titles, and formatting
     const labDatabase = {
         "1a": {
             title: "Experiment 1(a): Evidence-Based Reasoning (Weather Planner)",
@@ -363,6 +363,42 @@ print("Predictions:", predictions)
 print("Actual:", y_test)
 print("Accuracy:", accuracy)`
         },
+        "5b": {
+            title: "Experiment 5(b): Rule Learning and Refinement (Decision Tree Manual Split)",
+            code: `# Simple Decision Tree without sklearn
+
+X = [[1, 2], [2, 3], [3, 4], [4, 5]]
+y = [0, 0, 1, 1]
+
+# Split data manually (80% train, 20% test)
+X_train = X[:3]
+y_train = y[:3]
+X_test = X[3:]
+y_test = y[3:]
+
+# Simple decision tree using first feature threshold
+threshold = (X_train[1][0] + X_train[2][0]) / 2
+
+def predict(sample):
+    if sample[0] < threshold:
+        return 0
+    else:
+        return 1
+
+predictions = []
+correct = 0
+
+for sample, actual in zip(X_test, y_test):
+    pred = predict(sample)
+    predictions.append(pred)
+    if pred == actual:
+        correct += 1
+
+accuracy = correct / len(y_test)
+
+print("Predictions:", predictions)
+print("Accuracy:", accuracy)`
+        },
         "6a": {
             title: "Experiment 6(a): Model Evaluation Metrics (Iris Confusion Matrix)",
             code: `# Sample Iris-like dataset
@@ -429,6 +465,98 @@ for label in labels:
     print(f"{label}:")
     print(f"  Precision: {precision:.2f}")
     print(f"  Recall: {recall:.2f}")`
+        },
+        "6b": {
+            title: "Experiment 6(b): Learned Patterns Using Logistic Regression",
+            code: `import numpy as np
+
+# Sample data
+np.random.seed(0)
+X = np.random.rand(100, 2)
+y = (X[:,0] + X[:,1] > 1).astype(int)
+
+# Manual split
+split = int(0.8 * len(X))
+X_test = X[split:]
+y_test = y[split:]
+
+# Prediction
+y_pred = (X_test[:,0] + X_test[:,1] > 1).astype(int)
+
+# Accuracy
+accuracy = np.mean(y_test == y_pred)
+print("Accuracy:", round(accuracy, 2))
+
+# Metrics for each class
+for cls in [0, 1]:
+    tp = np.sum((y_pred == cls) & (y_test == cls))
+    fp = np.sum((y_pred == cls) & (y_test != cls))
+    fn = np.sum((y_pred != cls) & (y_test == cls))
+
+    precision = tp / (tp + fp) if (tp + fp) else 0
+    recall = tp / (tp + fn) if (tp + fn) else 0
+    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) else 0
+    support = np.sum(y_test == cls)
+
+    print(f"Class {cls}:")
+    print(f"  Precision: {precision:.2f}")
+    print(f"  Recall:    {recall:.2f}")
+    print(f"  F1-score:  {f1:.2f}")
+    print(f"  Support:   {support}")`
+        },
+        "7a": {
+            title: "Experiment 7(a): Construction of an Ontology using RDF",
+            code: `fruit = "http://example.org/fruit#"
+rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+rdfs = "http://www.w3.org/2000/01/rdf-schema#"
+
+triples = [
+    (fruit + "Fruit", rdf + "type", rdfs + "Class"),
+    (fruit + "Color", rdf + "type", rdfs + "Class"),
+    (fruit + "hasColor", rdf + "type", rdf + "Property"),
+    (fruit + "hasName", rdf + "type", rdf + "Property"),
+    (fruit + "Apple", rdf + "type", fruit + "Fruit"),
+    (fruit + "Apple", fruit + "hasColor", fruit + "Red"),
+    (fruit + "Apple", fruit + "hasName", "Apple"),
+    (fruit + "Banana", rdf + "type", fruit + "Fruit"),
+    (fruit + "Banana", fruit + "hasColor", fruit + "Yellow"),
+    (fruit + "Banana", fruit + "hasName", "Banana")
+]
+
+for subject, predicate, obj in triples:
+    print(f"Subject: {subject}, Predicate: {predicate}, Object: {obj}")`
+        },
+        "7b": {
+            title: "Experiment 7(b): Construction of an Ontology using OWL (Web Ontology Language)",
+            code: `# Simple Animal Ontology without owlready2
+
+ontology = {
+    "classes": ["Animal", "Bird", "Mammal"],
+    "individuals": {
+        "Sparrow": {
+            "type": "Bird",
+            "hasName": "Sparrow",
+            "hasColor": "Brown"
+        },
+        "Dog": {
+            "type": "Mammal",
+            "hasName": "Dog",
+            "hasColor": "White"
+        }
+    }
+}
+
+# Display ontology
+print("Classes:")
+for cls in ontology["classes"]:
+    print(cls)
+
+print("\nIndividuals:")
+for name, info in ontology["individuals"].items():
+    print("Name:", info["hasName"])
+    print("Type:", info["type"])
+    print("Color:", info["hasColor"])
+    print()`
         }
     };
 

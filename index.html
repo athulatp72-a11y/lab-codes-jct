@@ -102,4 +102,304 @@
             color: var(--accent-color);
         }
 
-        .
+        .copy-btn {
+            background-color: #334155;
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background-color: #475569;
+        }
+
+        pre {
+            background-color: #090d16;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            border: 1px solid #1e293b;
+        }
+
+        .error-msg {
+            color: #f87171;
+            text-align: center;
+            display: none;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>⚡ Lab Code Hub</h1>
+        <p style="color: var(--text-muted)">Type the experiment number to grab your code (e.g., 1a, 1b, 2, 3a, 3b...).</p>
+    </header>
+
+    <div class="search-box">
+        <input type="text" id="expInput" placeholder="Enter Experiment Number (e.g., 1a, 1b, 2, 3a)..." onkeypress="handleKeyPress(event)">
+        <button onclick="findCode()">Get Code</button>
+    </div>
+
+    <div id="error" class="error-msg">Experiment not found. Double-check the number! (Try adding 'a' or 'b' if applicable)</div>
+
+    <div id="resultCard" class="result-card">
+        <div class="result-header">
+            <span id="expTitle" class="result-title">Experiment X</span>
+            <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()">Copy Code</button>
+        </div>
+        <pre><code id="codeArea"></code></pre>
+    </div>
+</div>
+
+<script>
+    // --- UPLOAD YOUR CODES HERE ---
+    const labDatabase = {
+        "1a": {
+            title: "Experiment 1(a): Evidence-Based Reasoning (Weather Planner)",
+            code: `def evidence_based_reasoning(temperature, is_raining):
+    if temperature >= 25 and not is_raining:
+        return "It's a great day! Go for a walk."
+    elif temperature >= 20 and not is_raining:
+        return "It's a nice day. You can go for a walk."
+    elif is_raining:
+        return "It's raining. Better stay indoors."
+    else:
+        return "The weather doesn't seem suitable for a walk. Stay indoors."
+
+def main():
+    try:
+        temperature = float(input("Enter the current temperature in Celsius: "))
+        is_raining = input("Is it raining? (yes/no): ").lower() == "yes"
+        print(evidence_based_reasoning(temperature, is_raining))
+    except ValueError:
+        print("Please enter a valid temperature in Celsius.")
+
+if __name__ == "__main__":
+    main()`
+        },
+        "1b": {
+            title: "Experiment 1(b): Evidence-Based Reasoning (Threshold Evaluation)",
+            code: `def evidence_based_reasoning(numbers, threshold):
+    average = sum(numbers) / len(numbers)
+    if average > threshold:
+        decision = "above"
+    elif average < threshold:
+        decision = "below"
+    else:
+        decision = "equal to"
+    print("Numbers:", numbers)
+    print("Average:", average)
+    print(f"The average is {decision} the threshold {threshold}.")
+
+if __name__ == "__main__":
+    data = [10, 20, 30, 40, 50]
+    threshold_value = 35
+    evidence_based_reasoning(data, threshold_value)`
+        },
+        "2": {
+            title: "Experiment 2: Linear Regression (Study Hours vs Marks)",
+            code: `import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import linregress
+
+study_hours = np.array([2, 3, 4, 5, 6, 7, 8, 9, 10])
+marks = np.array([50, 60, 70, 75, 85, 90, 95, 100, 105])
+
+slope, intercept, r_value, p_value, std_err = linregress(study_hours, marks)
+predicted_marks = slope * study_hours + intercept
+
+plt.scatter(study_hours, marks)
+plt.plot(study_hours, predicted_marks, color='red')
+plt.xlabel('Study Hours')
+plt.ylabel('Marks')
+plt.title('Student Study Hours vs Marks')
+plt.show()
+
+print(f'Equation: Marks={slope:.2f}*Hours+{intercept:.2f}')
+print(f'r={r_value:.2f}, R2={r_value**2:.2f}, p={p_value:.4f}')`
+        },
+        "3a": {
+            title: "Experiment 3(a): Probability Simulations",
+            code: `import random
+
+def probability_of_heads(n):
+    return sum(random.choice([0, 1]) for _ in range(n)) / n
+
+def probability_of_dice_number(n, target):
+    return sum(random.randint(1, 6) == target for _ in range(n)) / n
+
+def probability_of_suit(suit, n):
+    deck = ['Hearts', 'Diamonds', 'Clubs', 'Spades'] * 13
+    return sum(random.choice(deck) == suit for _ in range(n)) / n
+
+print(probability_of_heads(1000))
+print(probability_of_dice_number(1000, 4))
+print(probability_of_suit('Hearts', 1000))`
+        },
+        "3b": {
+            title: "Experiment 3(b): Bayes' Theorem (Diabetes Diagnostic Probability)",
+            code: `def probability_of_diabetes_given_test(test_result_positive, probability_diabetes, probability_no_diabetes):
+    p_pos_given_diabetes = 0.9
+    p_pos_given_no_diabetes = 0.2
+    numerator = p_pos_given_diabetes * probability_diabetes
+    denominator = numerator + p_pos_given_no_diabetes * probability_no_diabetes
+    return numerator / denominator
+
+probability_diabetes = 0.1
+probability_no_diabetes = 1 - probability_diabetes
+result = probability_of_diabetes_given_test(True, probability_diabetes, probability_no_diabetes)
+print(f"Probability of diabetes given a positive test: {result:.2f}")`
+        },
+        "4": {
+            title: "Experiment 4: NLP Sentiment & Credibility Analysis",
+            code: `article = """Scientists have discovered a new species of dinosaur on a remote island.
+The study was conducted by renowned paleontologist Dr. Jane Smith and her team.
+The findings are published in the prestigious Journal of Paleontology."""
+
+# Split the article into words
+words = article.split()
+
+# Simple positive words
+positive_words = ["discovered", "renowned", "prestigious", "published"]
+
+# Count positive words
+positive_count = sum(1 for word in words if word.lower().strip('.,') in positive_words)
+
+# Common stop words
+stop_words = [
+    "the", "a", "an", "on", "of", "by", "and",
+    "to", "in", "was", "have", "is"
+]
+
+# Remove stop words
+filtered = [
+    word.lower().strip('.,')
+    for word in words
+    if word.lower().strip('.,') not in stop_words
+]
+
+score = 0
+
+# Simple sentiment check
+if positive_count >= 3:
+    score += 1
+
+# Check for important phrase
+if "renowned paleontologist" in article.lower():
+    score += 1
+
+# Check content length
+if len(filtered) > 10:
+    score += 1
+
+# Final result
+if score >= 2:
+    print("This article appears to be believable.")
+else:
+    print("This article may raise some credibility concerns.")`
+        },
+        "5a": {
+            title: "Experiment 5(a): Decision Tree Classification & Pruning (Iris Dataset)",
+            code: `from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+data = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(data.data, data.target, test_size=0.2, random_state=42)
+
+clf = DecisionTreeClassifier()
+clf.fit(X_train, y_train)
+print("Accuracy:", accuracy_score(y_test, clf.predict(X_test)))
+
+pruned = DecisionTreeClassifier(max_depth=3)
+pruned.fit(X_train, y_train)
+print("Pruned Accuracy:", accuracy_score(y_test, pruned.predict(X_test)))`
+        },
+        "5b": {
+            title: "Experiment 5(b): Basic Decision Tree Classification",
+            code: `from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+X = [[1, 2], [2, 3], [3, 4], [4, 5]]
+y = [0, 0, 1, 1]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+clf = DecisionTreeClassifier()
+clf.fit(X_train, y_train)
+print("Accuracy:", accuracy_score(y_test, clf.predict(X_test)))`
+        },
+        "6a": {
+            title: "Experiment 6(a): Model Evaluation Metrics (Iris Confusion Matrix)",
+            code: `from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, confusion_matrix
+
+data = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(data.data, data.target, test_size=0.2, random_state=42)
+
+clf = DecisionTreeClassifier().fit(X_train, y_train)
+pred = clf.predict(X_test)
+
+print(confusion_matrix(y_test, pred))
+print(classification_report(y_test, pred, target_names=data.target_names))`
+        },
+        "6b": {
+            title: "Experiment 6(b): Pending Code Upload",
+            code: `# Keep an eye out! Once you send me the code for Experiment 6b, I will update this section for you.`
+        }
+    };
+
+    function findCode() {
+        const query = document.getElementById('expInput').value.trim().toLowerCase();
+        const resultCard = document.getElementById('resultCard');
+        const errorDiv = document.getElementById('error');
+        const copyBtn = document.getElementById('copyBtn');
+
+        if (labDatabase[query]) {
+            errorDiv.style.display = 'none';
+            document.getElementById('expTitle').innerText = labDatabase[query].title;
+            document.getElementById('codeArea').innerText = labDatabase[query].code;
+            resultCard.style.display = 'block';
+            copyBtn.innerText = "Copy Code"; 
+        } else {
+            resultCard.style.display = 'none';
+            errorDiv.style.display = 'block';
+        }
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === "Enter") {
+            findCode();
+        }
+    }
+
+    function copyToClipboard() {
+        const codeText = document.getElementById('codeArea').innerText;
+        const copyBtn = document.getElementById('copyBtn');
+        
+        navigator.clipboard.writeText(codeText).then(() => {
+            copyBtn.innerText = "Copied! ✓";
+            setTimeout(() => {
+                copyBtn.innerText = "Copy Code";
+            }, 2000);
+        }).catch(err => {
+            alert("Oops, unable to copy automatically. Please select all and copy manually!");
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -261,30 +261,51 @@ print(f"Probability of diabetes given a positive test: {result:.2f}")`
         },
         "4": {
             title: "Experiment 4: NLP Sentiment & Credibility Analysis",
-            code: `import nltk
-from nltk.sentiment import SentimentIntensityAnalyzer
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-
-article = """Scientists have discovered a new species of dinosaur on a remote island.
+            code: article = """Scientists have discovered a new species of dinosaur on a remote island.
 The study was conducted by renowned paleontologist Dr. Jane Smith and her team.
 The findings are published in the prestigious Journal of Paleontology."""
 
-words = word_tokenize(article)
-sia = SentimentIntensityAnalyzer()
-sentiment_score = sia.polarity_scores(article)
-filtered = [w.lower() for w in words if w.isalnum() and w.lower() not in set(stopwords.words("english"))]
+# Split the article into words
+words = article.split()
+
+# Simple positive words
+positive_words = ["discovered", "renowned", "prestigious", "published"]
+
+# Count positive words
+positive_count = sum(1 for word in words if word.lower().strip('.,') in positive_words)
+
+# Common stop words
+stop_words = [
+    "the", "a", "an", "on", "of", "by", "and",
+    "to", "in", "was", "have", "is"
+]
+
+# Remove stop words
+filtered = [
+    word.lower().strip('.,')
+    for word in words
+    if word.lower().strip('.,') not in stop_words
+]
 
 score = 0
-if sentiment_score["compound"] >= 0.1: 
-    score += 1
-if "renowned paleontologist" in article: 
-    score += 1
-if len(filtered) > 10: 
+
+# Simple sentiment check
+if positive_count >= 3:
     score += 1
 
-print("This article appears believable." if score >= 2 else "Credibility concerns.")`
-        },
+# Check for important phrase
+if "renowned paleontologist" in article.lower():
+    score += 1
+
+# Check content length
+if len(filtered) > 10:
+    score += 1
+
+# Final result
+if score >= 2:
+    print("This article appears to be believable.")
+else:
+    print("This article may raise some credibility concerns.")
         "5a": {
             title: "Experiment 5(a): Decision Tree Classification & Pruning (Iris Dataset)",
             code: `from sklearn.datasets import load_iris

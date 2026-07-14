@@ -1,314 +1,142 @@
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>easy codes,poe does it easy</title>
+    <title>Lab Code Fast-Pass</title>
     <style>
         :root {
-            --bg-dark: #090d16;
-            --bg-panel: #0f172a;
-            --bg-card: #1e293b;
-            --accent-primary: #38bdf8;
-            --accent-hover: #0ea5e9;
-            --text-main: #f8fafc;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --text-color: #f8fafc;
             --text-muted: #94a3b8;
-            --border-color: #334155;
-            --code-bg: #05070c;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        /* Header Area */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 40px;
+        }
+
         header {
-            background-color: var(--bg-panel);
-            border-bottom: 1px solid var(--border-color);
-            padding: 20px 40px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #334155;
+            background-color: var(--card-bg);
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+        }
+
+        button {
+            padding: 0 25px;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--accent-color);
+            color: #0f172a;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .result-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #334155;
+            display: none;
+        }
+
+        .result-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
         }
 
-        /* Eye-catching, glowing neon-gradient title styling */
-        .logo-area h1 {
-            font-size: 26px;
-            font-weight: 900;
-            letter-spacing: -0.75px;
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 30%, #f355da 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 2px 8px rgba(0, 242, 254, 0.4));
-            font-family: 'Segoe UI', system-ui, sans-serif;
+        .result-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-color);
         }
 
-        .logo-sub {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        .search-container {
-            display: flex;
-            gap: 8px;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .search-container input {
-            flex: 1;
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background-color: var(--bg-dark);
+        .copy-btn {
+            background-color: #334155;
             color: white;
+            padding: 8px 15px;
             font-size: 14px;
-            outline: none;
-            transition: all 0.2s;
-        }
-
-        .search-container input:focus {
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
-        }
-
-        .search-container button {
-            padding: 0 18px;
-            border-radius: 8px;
+            border-radius: 5px;
             border: none;
-            background-color: var(--accent-primary);
-            color: var(--bg-dark);
-            font-weight: 600;
-            font-size: 14px;
             cursor: pointer;
-            transition: background-color 0.2s;
         }
 
-        .search-container button:hover {
-            background-color: var(--accent-hover);
+        .copy-btn:hover {
+            background-color: #475569;
         }
 
-        /* Main Workspace Layout */
-        .workspace {
-            flex: 1;
-            display: flex;
-            height: calc(100vh - 85px);
-            overflow: hidden;
-        }
-
-        /* Sidebar navigation */
-        .sidebar {
-            width: 280px;
-            background-color: var(--bg-panel);
-            border-right: 1px solid var(--border-color);
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .sidebar-section-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            padding-left: 8px;
-        }
-
-        .sidebar-list {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            list-style: none;
-        }
-
-        .sidebar-item {
-            padding: 10px 12px;
+        pre {
+            background-color: #090d16;
+            padding: 15px;
             border-radius: 6px;
-            cursor: pointer;
-            font-size: 13.5px;
-            color: var(--text-muted);
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid transparent;
-        }
-
-        .sidebar-item:hover {
-            background-color: var(--bg-card);
-            color: var(--text-main);
-        }
-
-        .sidebar-item.active {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: var(--accent-primary);
-            border-color: rgba(56, 189, 248, 0.3);
-            font-weight: 600;
-        }
-
-        .sidebar-item .badge {
-            background-color: var(--border-color);
-            color: var(--text-main);
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-
-        .sidebar-item.active .badge {
-            background-color: var(--accent-primary);
-            color: var(--bg-dark);
-        }
-
-        /* Code display Area */
-        .code-viewer {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            background-color: var(--bg-dark);
-        }
-
-        .welcome-view {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            text-align: center;
-            color: var(--text-muted);
-            gap: 15px;
-        }
-
-        .welcome-view h2 {
-            color: var(--text-main);
-            font-weight: 600;
-        }
-
-        .welcome-view p {
-            max-width: 400px;
+            overflow-x: auto;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.5;
+            border: 1px solid #1e293b;
         }
 
         .error-msg {
             color: #f87171;
-            background-color: rgba(248, 113, 113, 0.1);
-            border: 1px solid rgba(248, 113, 113, 0.2);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
+            text-align: center;
             display: none;
+            margin-top: 15px;
         }
 
-        .code-display-card {
-            background-color: var(--bg-panel);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            display: none;
-            flex-direction: column;
-            height: 100%;
-            overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-header {
-            padding: 16px 24px;
-            background-color: rgba(15, 23, 42, 0.8);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .card-title-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .card-category {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-primary);
-            font-weight: 700;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .action-bar {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .btn-copy {
-            background-color: var(--accent-primary);
-            color: var(--bg-dark);
-            padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-copy:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-1px);
-        }
-
-        .btn-copy:active {
-            transform: translateY(0);
-        }
-
-        .code-container-wrapper {
-            flex: 1;
-            overflow: auto;
-            background-color: var(--code-bg);
-            position: relative;
-        }
-
-        pre {
-            margin: 0;
-            padding: 24px;
-            font-family: 'Fira Code', 'Courier New', Courier, monospace;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #e2e8f0;
-        }
-
-        /* Helper to support clipboard */
+        /* Hidden textarea helper to support copying on local file:/// access */
         #fallbackClipboardArea {
             position: absolute;
             left: -9999px;
@@ -317,109 +145,485 @@
             height: 1px;
             opacity: 0;
         }
-
-        /* Responsive adaptations */
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .search-container {
-                max-width: 100%;
-            }
-            .workspace {
-                flex-direction: column;
-                height: auto;
-                overflow: visible;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                max-height: 250px;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-            }
-            .code-viewer {
-                height: 500px;
-                padding: 15px;
-            }
-        }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo-area">
-        <h1>easy codes,poe does it easy</h1>
-        <div class="logo-sub">does it easy • instant lab access</div>
+<div class="container">
+    <header>
+        <h1>⚡ Lab Code Hub</h1>
+        <p style="color: var(--text-muted)">Type the experiment number to grab your code (e.g., 1a, 1b, 2, 3a, 3b...).</p>
+    </header>
+
+    <div class="search-box">
+        <input type="text" id="expInput" placeholder="Enter Experiment Number (e.g., 1a, 1b, 2, 3a)..." onkeypress="handleKeyPress(event)">
+        <button onclick="findCode()">Get Code</button>
     </div>
 
-    <div class="search-container">
-        <input type="text" id="expInput" placeholder="Jump to Exp (e.g. 1a, 2, 6a)..." onkeypress="handleKeyPress(event)">
-        <button onclick="findCode()">Search</button>
+    <div id="error" class="error-msg">Experiment not found. Double-check the number! (Try adding 'a' or 'b' if applicable)</div>
+
+    <div id="resultCard" class="result-card">
+        <div class="result-header">
+            <span id="expTitle" class="result-title">Experiment X</span>
+            <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()">Copy Code</button>
+        </div>
+        <pre><code id="codeArea"></code></pre>
     </div>
-</header>
+</div>
 
-<div class="workspace">
-    <div class="sidebar">
-        <div>
-            <div class="sidebar-section-title">Reasoning & Regression</div>
-            <ul class="sidebar-list">
-                <li class="sidebar-item" onclick="selectExp('1a')" id="side-1a"><span class="badge">1a</span> Weather Planner</li>
-                <li class="sidebar-item" onclick="selectExp('1b')" id="side-1b"><span class="badge">1b</span> Threshold Eval</li>
-                <li class="sidebar-item" onclick="selectExp('2')" id="side-2"><span class="badge">2</span> Linear Regression</li>
-            </ul>
-        </div>
+<textarea id="fallbackClipboardArea"></textarea>
 
-        <div>
-            <div class="sidebar-section-title">Probability & NLP</div>
-            <ul class="sidebar-list">
-                <li class="sidebar-item" onclick="selectExp('3a')" id="side-3a"><span class="badge">3a</span> Simulations</li>
-                <li class="sidebar-item" onclick="selectExp('3b')" id="side-3b"><span class="badge">3b</span> Bayes' Theorem</li>
-                <li class="sidebar-item" onclick="selectExp('4')" id="side-4"><span class="badge">4</span> NLP Credibility</li>
-            </ul>
-        </div>
+<script>
+    const labDatabase = {
+        "1a": {
+            title: "Experiment 1(a): Evidence-Based Reasoning (Weather Planner)",
+            code: `def evidence_based_reasoning(temperature, is_raining):
+    if temperature >= 25 and not is_raining:
+        return "It's a great day! Go for a walk."
+    elif temperature >= 20 and not is_raining:
+        return "It's a nice day. You can go for a walk."
+    elif is_raining:
+        return "It's raining. Better stay indoors."
+    else:
+        return "The weather doesn't seem suitable for a walk. Stay indoors."
 
-        <div>
-            <div class="sidebar-section-title">Machine Learning</div>
-            <ul class="sidebar-list">
-                <li class="sidebar-item" onclick="selectExp('5a')" id="side-5a"><span class="badge">5a</span> Tree Pruning</li>
-                <li class="sidebar-item" onclick="selectExp('5b')" id="side-5b"><span class="badge">5b</span> Decision Tree</li>
-                <li class="sidebar-item" onclick="selectExp('6a')" id="side-6a"><span class="badge">6a</span> Confusion Matrix</li>
-                <li class="sidebar-item" onclick="selectExp('6b')" id="side-6b"><span class="badge">6b</span> Logistic Reg</li>
-            </ul>
-        </div>
+def main():
+    try:
+        temperature = float(input("Enter the current temperature in Celsius: "))
+        is_raining = input("Is it raining? (yes/no): ").lower() == "yes"
+        print(evidence_based_reasoning(temperature, is_raining))
+    except ValueError:
+        print("Please enter a valid temperature in Celsius.")
 
-        <div>
-            <div class="sidebar-section-title">Knowledge Graph</div>
-            <ul class="sidebar-list">
-                <li class="sidebar-item" onclick="selectExp('7a')" id="side-7a"><span class="badge">7a</span> RDF Ontology</li>
-                <li class="sidebar-item" onclick="selectExp('7b')" id="side-7b"><span class="badge">7b</span> OWL Ontology</li>
-            </ul>
-        </div>
-    </div>
+if __name__ == "__main__":
+    main()`
+        },
+        "1b": {
+            title: "Experiment 1(b): Evidence-Based Reasoning (Threshold Evaluation)",
+            code: `def evidence_based_reasoning(numbers, threshold):
+    average = sum(numbers) / len(numbers)
+    if average > threshold:
+        decision = "above"
+    elif average < threshold:
+        decision = "below"
+    else:
+        decision = "equal to"
+    print("Numbers:", numbers)
+    print("Average:", average)
+    print(f"The average is {decision} the threshold {threshold}.")
 
-    <div class="code-viewer">
-        <div id="error" class="error-msg"></div>
+if __name__ == "__main__":
+    data = [10, 20, 30, 40, 50]
+    threshold_value = 35
+    evidence_based_reasoning(data, threshold_value)`
+        },
+        "2": {
+            title: "Experiment 2: Linear Regression (Study Hours vs Marks)",
+            code: `import numpy as np
 
-        <div id="welcomeView" class="welcome-view">
-            <h2>Select an experiment</h2>
-            <p>Use the sidebar navigation on the left, or type the code ID in the search bar above to view and instantly copy your code.</p>
-        </div>
+study_hours = np.array([2, 3, 4, 5, 6, 7, 8, 9, 10])
+marks = np.array([50, 60, 70, 75, 85, 90, 95, 100, 105])
 
-        <div id="resultCard" class="code-display-card">
-            <div class="card-header">
-                <div class="card-title-group">
-                    <span id="expCategory" class="card-category">EXPERIMENT</span>
-                    <span id="expTitle" class="card-title">Select an experiment to view code</span>
-                </div>
-                <div class="action-bar">
-                    <button class="btn-copy" id="copyBtn" onclick="copyToClipboard()">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        Copy Code
-                    </button>
-                </div>
-            </div>
-            <div class="code-container-wrapper">
-                <pre><code id="codeArea"></code></
+# Linear regression using NumPy
+slope, intercept = np.polyfit(study_hours, marks, 1)
+
+predicted_marks = slope * study_hours + intercept
+
+# Correlation coefficient
+r = np.corrcoef(study_hours, marks)[0, 1]
+r2 = r ** 2
+
+print("Predicted Marks:")
+print(predicted_marks)
+
+print("\\nEquation: Marks = {:.2f} * Hours + {:.2f}".format(slope, intercept))
+print("r = {:.2f}".format(r))
+print("R² = {:.2f}".format(r2))`
+        },
+        "3a": {
+            title: "Experiment 3(a): Probability Simulations",
+            code: `import random
+
+def probability_of_heads(n):
+    return sum(random.choice([0, 1]) for _ in range(n)) / n
+
+def probability_of_dice_number(n, target):
+    return sum(random.randint(1, 6) == target for _ in range(n)) / n
+
+def probability_of_suit(suit, n):
+    deck = ['Hearts', 'Diamonds', 'Clubs', 'Spades'] * 13
+    return sum(random.choice(deck) == suit for _ in range(n)) / n
+
+print(probability_of_heads(1000))
+print(probability_of_dice_number(1000, 4))
+print(probability_of_suit('Hearts', 1000))`
+        },
+        "3b": {
+            title: "Experiment 3(b): Bayes' Theorem (Diabetes Diagnostic Probability)",
+            code: `def probability_of_diabetes_given_test(test_result_positive, probability_diabetes, probability_no_diabetes):
+    p_pos_given_diabetes = 0.9
+    p_pos_given_no_diabetes = 0.2
+    numerator = p_pos_given_diabetes * probability_diabetes
+    denominator = numerator + p_pos_given_no_diabetes * probability_no_diabetes
+    return numerator / denominator
+
+probability_diabetes = 0.1
+probability_no_diabetes = 1 - probability_diabetes
+result = probability_of_diabetes_given_test(True, probability_diabetes, probability_no_diabetes)
+print(f"Probability of diabetes given a positive test: {result:.2f}")`
+        },
+        "4": {
+            title: "Experiment 4: NLP Sentiment & Credibility Analysis",
+            code: `article = """Scientists have discovered a new species of dinosaur on a remote island.
+The study was conducted by renowned paleontologist Dr. Jane Smith and her team.
+The findings are published in the prestigious Journal of Paleontology."""
+
+# Split the article into words
+words = article.split()
+
+# Simple positive words
+positive_words = ["discovered", "renowned", "prestigious", "published"]
+
+# Count positive words
+positive_count = sum(1 for word in words if word.lower().strip('.,') in positive_words)
+
+# Common stop words
+stop_words = [
+    "the", "a", "an", "on", "of", "by", "and",
+    "to", "in", "was", "have", "is"
+]
+
+# Remove stop words
+filtered = [
+    word.lower().strip('.,')
+    for word in words
+    if word.lower().strip('.,') not in stop_words
+]
+
+score = 0
+
+# Simple sentiment check
+if positive_count >= 3:
+    score += 1
+
+# Check for important phrase
+if "renowned paleontologist" in article.lower():
+    score += 1
+
+# Check content length
+if len(filtered) > 10:
+    score += 1
+
+# Final result
+if score >= 2:
+    print("This article appears to be believable.")
+else:
+    print("This article may raise some credibility concerns.")`
+        },
+        "5a": {
+            title: "Experiment 5(a): Decision Tree Classification & Pruning (Iris Dataset)",
+            code: `# Sample dataset
+X = [
+    [5.1, 3.5],
+    [4.9, 3.0],
+    [6.2, 3.4],
+    [6.7, 3.1],
+    [5.5, 2.4]
+]
+
+y = ["Setosa", "Setosa", "Versicolor", "Virginica", "Versicolor"]
+
+# Split data manually
+X_train = X[:4]
+y_train = y[:4]
+
+X_test = X[4:]
+y_test = y[4:]
+
+# Simple rule-based classifier
+def predict(sample):
+    if sample[0] < 5.5:
+        return "Setosa"
+    elif sample[0] < 6.5:
+        return "Versicolor"
+    else:
+        return "Virginica"
+
+# Make predictions
+predictions = [predict(sample) for sample in X_test]
+
+# Calculate accuracy
+correct = 0
+for actual, predicted in zip(y_test, predictions):
+    if actual == predicted:
+        correct += 1
+
+accuracy = correct / len(y_test)
+
+print("Predictions:", predictions)
+print("Actual:", y_test)
+print("Accuracy:", accuracy)`
+        },
+        "5b": {
+            title: "Experiment 5(b): Rule Learning and Refinement (Decision Tree Manual Split)",
+            code: `# Simple Decision Tree without sklearn
+
+X = [[1, 2], [2, 3], [3, 4], [4, 5]]
+y = [0, 0, 1, 1]
+
+# Split data manually (80% train, 20% test)
+X_train = X[:3]
+y_train = y[:3]
+X_test = X[3:]
+y_test = y[3:]
+
+# Simple decision tree using first feature threshold
+threshold = (X_train[1][0] + X_train[2][0]) / 2
+
+def predict(sample):
+    if sample[0] < threshold:
+        return 0
+    else:
+        return 1
+
+predictions = []
+correct = 0
+
+for sample, actual in zip(X_test, y_test):
+    pred = predict(sample)
+    predictions.append(pred)
+    if pred == actual:
+        correct += 1
+
+accuracy = correct / len(y_test)
+
+print("Predictions:", predictions)
+print("Accuracy:", accuracy)`
+        },
+        "6a": {
+            title: "Experiment 6(a): Model Evaluation Metrics (Iris Confusion Matrix)",
+            code: `# Sample Iris-like dataset
+X = [
+    [5.1, 3.5],
+    [4.9, 3.0],
+    [6.2, 3.4],
+    [6.7, 3.1],
+    [5.5, 2.4]
+]
+
+y = ["Setosa", "Setosa", "Versicolor", "Virginica", "Versicolor"]
+
+# Split data manually
+X_train = X[:4]
+y_train = y[:4]
+
+X_test = X[4:]
+y_test = y[4:]
+
+# Simple rule-based classifier
+def predict(sample):
+    if sample[0] < 5.5:
+        return "Setosa"
+    elif sample[0] < 6.5:
+        return "Versicolor"
+    else:
+        return "Virginica"
+
+# Make predictions
+predictions = []
+for sample in X_test:
+    predictions.append(predict(sample))
+
+# Confusion Matrix
+labels = ["Setosa", "Versicolor", "Virginica"]
+matrix = [[0] * 3 for _ in range(3)]
+
+for actual, predicted in zip(y_test, predictions):
+    i = labels.index(actual)
+    j = labels.index(predicted)
+    matrix[i][j] += 1
+
+print("Confusion Matrix:")
+for row in matrix:
+    print(row)
+
+# Accuracy
+correct = sum(1 for a, p in zip(y_test, predictions) if a == p)
+accuracy = correct / len(y_test)
+
+print("\\nAccuracy:", accuracy)
+
+# Simple Classification Report
+print("\\nClassification Report")
+for label in labels:
+    tp = sum(1 for a, p in zip(y_test, predictions) if a == label and p == label)
+    fp = sum(1 for a, p in zip(y_test, predictions) if a != label and p == label)
+    fn = sum(1 for a, p in zip(y_test, predictions) if a == label and p != label)
+
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0
+    recall = tp / (tp + fn) if (tp + fn) > 0 else 0
+
+    print(f"{label}:")
+    print(f"  Precision: {precision:.2f}")
+    print(f"  Recall: {recall:.2f}")`
+        },
+        "6b": {
+            title: "Experiment 6(b): Learned Patterns Using Logistic Regression",
+            code: `import numpy as np
+
+# Sample data
+np.random.seed(0)
+X = np.random.rand(100, 2)
+y = (X[:,0] + X[:,1] > 1).astype(int)
+
+# Manual split
+split = int(0.8 * len(X))
+X_test = X[split:]
+y_test = y[split:]
+
+# Prediction
+y_pred = (X_test[:,0] + X_test[:,1] > 1).astype(int)
+
+# Accuracy
+accuracy = np.mean(y_test == y_pred)
+print("Accuracy:", round(accuracy, 2))
+
+# Metrics for each class
+for cls in [0, 1]:
+    tp = np.sum((y_pred == cls) & (y_test == cls))
+    fp = np.sum((y_pred == cls) & (y_test != cls))
+    fn = np.sum((y_pred != cls) & (y_test == cls))
+
+    precision = tp / (tp + fp) if (tp + fp) else 0
+    recall = tp / (tp + fn) if (tp + fn) else 0
+    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) else 0
+    support = np.sum(y_test == cls)
+
+    print(f"Class {cls}:")
+    print(f"  Precision: {precision:.2f}")
+    print(f"  Recall:    {recall:.2f}")
+    print(f"  F1-score:  {f1:.2f}")
+    print(f"  Support:   {support}")`
+        },
+        "7a": {
+            title: "Experiment 7(a): Construction of an Ontology using RDF",
+            code: `fruit = "http://example.org/fruit#"
+rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+rdfs = "http://www.w3.org/2000/01/rdf-schema#"
+
+triples = [
+    (fruit + "Fruit", rdf + "type", rdfs + "Class"),
+    (fruit + "Color", rdf + "type", rdfs + "Class"),
+    (fruit + "hasColor", rdf + "type", rdf + "Property"),
+    (fruit + "hasName", rdf + "type", rdf + "Property"),
+    (fruit + "Apple", rdf + "type", fruit + "Fruit"),
+    (fruit + "Apple", fruit + "hasColor", fruit + "Red"),
+    (fruit + "Apple", fruit + "hasName", "Apple"),
+    (fruit + "Banana", rdf + "type", fruit + "Fruit"),
+    (fruit + "Banana", fruit + "hasColor", fruit + "Yellow"),
+    (fruit + "Banana", fruit + "hasName", "Banana")
+]
+
+for subject, predicate, obj in triples:
+    print(f"Subject: {subject}, Predicate: {predicate}, Object: {obj}")`
+        },
+        "7b": {
+            title: "Experiment 7(b): Construction of an Ontology using OWL (Web Ontology Language)",
+            code: `# Simple Animal Ontology without owlready2
+
+ontology = {
+    "classes": ["Animal", "Bird", "Mammal"],
+    "individuals": {
+        "Sparrow": {
+            "type": "Bird",
+            "hasName": "Sparrow",
+            "hasColor": "Brown"
+        },
+        "Dog": {
+            "type": "Mammal",
+            "hasName": "Dog",
+            "hasColor": "White"
+        }
+    }
+}
+
+# Display ontology
+print("Classes:")
+for cls in ontology["classes"]:
+    print(cls)
+
+print()
+print("Individuals:")
+
+for name, info in ontology["individuals"].items():
+    print("Name:", info["hasName"])
+    print("Type:", info["type"])
+    print("Color:", info["hasColor"])
+    print()`
+        }
+    };
+
+    function findCode() {
+        const query = document.getElementById('expInput').value.trim().toLowerCase();
+        const resultCard = document.getElementById('resultCard');
+        const errorDiv = document.getElementById('error');
+        const copyBtn = document.getElementById('copyBtn');
+
+        if (labDatabase[query]) {
+            errorDiv.style.display = 'none';
+            document.getElementById('expTitle').innerText = labDatabase[query].title;
+            document.getElementById('codeArea').innerText = labDatabase[query].code;
+            resultCard.style.display = 'block';
+            copyBtn.innerText = "Copy Code"; 
+        } else {
+            resultCard.style.display = 'none';
+            errorDiv.style.display = 'block';
+        }
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === "Enter") {
+            findCode();
+        }
+    }
+
+    function copyToClipboard() {
+        const codeText = document.getElementById('codeArea').innerText;
+        const copyBtn = document.getElementById('copyBtn');
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(codeText).then(() => {
+                showSuccessState(copyBtn);
+            }).catch(() => {
+                fallbackCopy(codeText, copyBtn);
+            });
+        } else {
+            fallbackCopy(codeText, copyBtn);
+        }
+    }
+
+    function fallbackCopy(text, button) {
+        const fallbackTextarea = document.getElementById('fallbackClipboardArea');
+        fallbackTextarea.value = text;
+        fallbackTextarea.focus();
+        fallbackTextarea.select();
+        fallbackTextarea.setSelectionRange(0, 99999);
+
+        try {
+            document.execCommand('copy');
+            showSuccessState(button);
+        } catch (err) {
+            alert("Oops, unable to copy automatically. Please manually select the code text and copy!");
+        }
+    }
+
+    function showSuccessState(button) {
+        button.innerText = "Copied! ✓";
+        setTimeout(() => {
+            button.innerText = "Copy Code";
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>
